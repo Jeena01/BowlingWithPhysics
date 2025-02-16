@@ -34,14 +34,19 @@ public class GameManagar : MonoBehaviour
                 Destroy(child.gameObject);
             }
             Destroy(pinObjects);
+            
         }
 
         pinObjects = Instantiate(pinCollection,
                 pinAnchor.transform.position,
                 Quaternion.identity, transform);
-                fallTriggers = FindObjectsByType<FallTrigger>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                fallTriggers = FindObjectsByType<FallTrigger>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+                fallTriggers = System.Array.FindAll(fallTriggers, pin => pin.transform.IsChildOf(pinObjects.transform));
+
+                 Debug.Log($"Total pins detected: {fallTriggers.Length}");
         foreach (FallTrigger pin in fallTriggers)
         {
+            Debug.Log($"Detected FallTrigger on: {pin.gameObject.name}");
             pin.onPinFall.RemoveAllListeners();
             pin.onPinFall.AddListener(IncrementScore);
             pin.isPinFallen = false;
@@ -49,6 +54,7 @@ public class GameManagar : MonoBehaviour
     }
     private void IncrementScore(){
         score++;
+        Debug.Log($"Score increased to {score}");
         scoreText.text = $"Score: {score}";
     }
 }

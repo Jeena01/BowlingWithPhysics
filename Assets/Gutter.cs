@@ -3,6 +3,9 @@ using UnityEngine;
 public class Gutter : MonoBehaviour
 {
     private void OnTriggerEnter(Collider triggeredBody){
+        if(!triggeredBody.gameObject.CompareTag("Ball")){
+            return;
+        }
         Rigidbody ballRigidBody = triggeredBody.GetComponent<Rigidbody>();
         float velocityMagnitude = ballRigidBody.linearVelocity.magnitude;
 

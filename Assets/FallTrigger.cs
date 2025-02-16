@@ -9,8 +9,8 @@ public class FallTrigger : MonoBehaviour
         
         if(triggeredObject.gameObject.CompareTag("Ground")&& !isPinFallen){
             isPinFallen=true;
-            onPinFall?.Invoke();
             Debug.Log($"{gameObject.name} has fallen");
+            onPinFall?.Invoke();
         }
 
     }

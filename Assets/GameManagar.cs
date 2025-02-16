@@ -40,7 +40,7 @@ public class GameManagar : MonoBehaviour
         pinObjects = Instantiate(pinCollection,
                 pinAnchor.transform.position,
                 Quaternion.identity, transform);
-                fallTriggers = FindObjectsByType<FallTrigger>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+                fallTriggers = FindObjectsByType<FallTrigger>(FindObjectsInactive.Include, FindObjectsSortMode.None);
                 fallTriggers = System.Array.FindAll(fallTriggers, pin => pin.transform.IsChildOf(pinObjects.transform));
 
                  Debug.Log($"Total pins detected: {fallTriggers.Length}");
@@ -54,7 +54,6 @@ public class GameManagar : MonoBehaviour
     }
     private void IncrementScore(){
         score++;
-        Debug.Log($"Score increased to {score}");
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"Score: {score/2}";
     }
 }
